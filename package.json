@@ -78,7 +78,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build && compress-cra",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && cp build/index.html build/404.html",
     "deploy": "gh-pages -d build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
