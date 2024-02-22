@@ -11,21 +11,8 @@ module.exports = function override(config, env) {
 
   if (config.plugins) {
     config.plugins = config.plugins.map(plugin => {
-      if (plugin.constructor.name === 'WebpackManifestPlugin') {
-        plugin.opts.generate = (seed, files, entrypoints) => {
-          const manifestFiles = files.reduce((manifest, file) => {
-            manifest[file.name] = file.path;
-            return manifest;
-          }, seed);
-          const entrypointFiles = entrypoints.main.filter(
-            fileName => !fileName.endsWith('.map')
-          );
-
-          return {
-            files: manifestFiles,
-            entrypoints: entrypointFiles,
-          };
-        };
+      if (plugin.constructor.name === 'GenerateSW') {
+        plugin.config.maximumFileSizeToCacheInBytes = 8000000; // 8MB
       }
 
       return plugin;
